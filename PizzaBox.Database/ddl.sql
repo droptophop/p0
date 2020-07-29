@@ -6,6 +6,15 @@ go
 create schema Pizza; -- namespace
 go
 
+create schema Orders; -- namespace
+go
+
+create schema Users; -- namespace
+go
+
+create schema Store; -- namespace
+go
+
 -- CREATE 
 
 create table Pizza.Crust
@@ -56,6 +65,42 @@ create table Pizza.PizzaTopping
     constraint FK_PizzaToppping foreign key (PizzaId) references Pizza.Pizza(PizzaId)
 
 );
+
+create table Users.Users
+(
+    UserId int not null identity (1,1),
+    [Name] nvarchar(50) not null,
+    constraint PK_User primary key (UserId)
+);
+
+create table Store.Store
+(
+    StoreId int not null identity (1,1),
+    [Name] nvarchar(50) not null,
+    constraint PK_Store primary key (StoreId)
+);
+
+create table Orders.Orders
+(
+    OrderId int not null identity (1,1),
+    UserId int not null,
+    StoreId int not null,
+    Price money not null,
+    OrderDate datetime2(0) not null default getdate(),
+    constraint PK_Order primary key (OrderId),
+    constraint FK_User foreign key (UserId) references Users.Users(UserId),
+    constraint FK_Store foreign key (StoreId) references Store.Store(StoreId)
+);
+
+create table Orders.PizzaOrder
+(
+    PizzaOrderId int not null identity (1,1),
+    PizzaId int not null,
+    OrderId int not null,
+    constraint PK_PizzaOrder primary key (PizzaOrderId),
+    constraint FK_Pizza foreign key (PizzaId) references Pizza.Pizza(PizzaId),
+    constraint FK_Order foreign key (OrderId) references Orders.Orders(OrderId)
+);
 go
 
 -- END CREATE
@@ -69,7 +114,7 @@ go
 drop table Pizza.Pizza; -- tables are typically archived rather than dropped
 drop table Pizza.Crust;
 drop table Pizza.Size;
-drop table Pizza.Toppings;
+drop table Pizza.Topping;
 drop table Pizza.PizzaTopping;
 -- drop schema Pizza; -- schema are typically archived rather than dropped
 -- drop database PizzaStoreDb; -- occurs in development

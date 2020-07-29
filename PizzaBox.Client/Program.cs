@@ -1,6 +1,6 @@
 ﻿using System;
 using model = PizzaBox.Housing.Models;
-using comp =PizzaBox.Housing.Components;
+using comp = PizzaBox.Housing.Components;
 using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client
@@ -12,7 +12,7 @@ namespace PizzaBox.Client
       var pr = new PizzaRepo();
       var pizza = new model.Pizza()
       {
-        Name = "Cheesy Pizza",
+        Name = "Sausage Pizza",
         Crust = new comp.Crust() { Name = "Deep Dish"} ,
         Size = new comp.Size() { Name = "Large" }
       };

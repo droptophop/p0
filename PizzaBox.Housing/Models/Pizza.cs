@@ -17,5 +17,10 @@ namespace PizzaBox.Housing.Models
         return Crust.Price + Size.Price;
       }
     }
+
+    public override string ToString()
+    {
+      return $"{Size} {Crust} {Name}";
+    }
   }
 }
