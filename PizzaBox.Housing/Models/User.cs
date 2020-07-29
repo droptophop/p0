@@ -4,6 +4,9 @@ namespace PizzaBox.Housing.Models
 {
   public class User
   {
-    public List<Order> Orders { get; }
+    private List<Order> _orders = new List<Order>();
+
+    public string name { get; set; }
+    public List<Order> Orders { get { return _orders; } }
   }
 }
