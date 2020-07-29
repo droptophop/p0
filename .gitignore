@@ -1,4 +1,6 @@
 #dotnet
 obj/
 bin/
-PizzaStoreDbContext.cs
+
+.vscode/
+.DS_Store
