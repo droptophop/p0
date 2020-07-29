@@ -9,22 +9,30 @@ namespace PizzaBox.Client
   {
     static void Main(string[] args)
     {
-      var pr = new PizzaRepo();
-      var pizza = new model.Pizza()
-      {
-        Name = "Sausage Pizza",
-        Crust = new comp.Crust() { Name = "Deep Dish"} ,
-        Size = new comp.Size() { Name = "Large" }
-      };
-      
-      pr.Create(pizza);
-      
-      Console.ReadLine();
+      Console.WriteLine("Welcome to the Leaning Tower of Pizza!");
 
-      foreach (var item in pr.ReadAll())
-      {
-        System.Console.WriteLine(item); 
-      }
+      // var pr = new PizzaRepo();
+      // var pizza = new model.Pizza()
+      // {
+      //   Name = "Chicken Pizza",
+      //   Crust = new comp.Crust() { Name = "Deep Dish"} ,
+      //   Size = new comp.Size() { Name = "Large" }
+      // };
+      
+      // pr.Create(pizza);
+      
+      // Console.ReadLine();
+
+      // foreach(var item in pr.CrustOptions())
+      // {
+      //   Console.WriteLine(item.Name);
+      // }
+      
+
+      // foreach (var item in pr.ReadAll())
+      // {
+      //   System.Console.WriteLine(item); 
+      // }
     }
   }
 }

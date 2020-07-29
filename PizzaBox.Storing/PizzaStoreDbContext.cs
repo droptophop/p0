@@ -43,6 +43,8 @@ namespace PizzaBox.Storing
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.Price).HasColumnType("money");
             });
 
             modelBuilder.Entity<Orders>(entity =>
@@ -80,6 +82,8 @@ namespace PizzaBox.Storing
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250);
+
+                entity.Property(e => e.Price).HasColumnType("money");
 
                 entity.HasOne(d => d.Crust)
                     .WithMany(p => p.Pizza)
@@ -135,6 +139,8 @@ namespace PizzaBox.Storing
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.Price).HasColumnType("money");
             });
 
             modelBuilder.Entity<Store>(entity =>
@@ -153,6 +159,8 @@ namespace PizzaBox.Storing
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
+
+                entity.Property(e => e.Price).HasColumnType("money");
             });
 
             modelBuilder.Entity<Users>(entity =>

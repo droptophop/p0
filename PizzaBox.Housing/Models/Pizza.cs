@@ -8,7 +8,7 @@ namespace PizzaBox.Housing.Models
   public class Pizza
   {
     private List<Topping> _toppings = new List<Topping>();
-    public string Name { get; set; }
+    public string Name { get; }
     public Crust Crust { get; set; }
     public Size Size { get; set; }
     public List<Topping> Toppings 
@@ -17,11 +17,6 @@ namespace PizzaBox.Housing.Models
       {
         return _toppings;
       } 
-      
-      set
-      {
-        
-      }
     }
 
 /*            Constructor          */
@@ -48,6 +43,10 @@ namespace PizzaBox.Housing.Models
     public void Addtopping(Topping topping)
     {
       Toppings.Add(topping);
+    }
+    public void Addtoppings(List<Topping> toppings)
+    {
+      Toppings.AddRange(toppings);
     }
 
     public decimal Price()

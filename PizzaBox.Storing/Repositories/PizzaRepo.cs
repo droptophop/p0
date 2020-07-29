@@ -18,29 +18,50 @@ namespace PizzaBox.Storing.Repositories
       newPizza.Name = pizza.Name;
       newPizza.Crust = new Crust() { Name = pizza.Crust.Name };
       newPizza.Size = new Size() { Name = pizza.Size.Name };
+      newPizza.Price = pizza.Price();
       newPizza.DateModified = orderDate;
 
       _db.Pizza.Add(newPizza);
       _db.SaveChanges();
     }
 
-    public List<model.Pizza> ReadAll()
+    public List<comp.Crust> CrustOptions()
     {
-      var domainPizzaList = new List<model.Pizza>();
+      var compCrustList = new List<comp.Crust>();
       // var newPizza = new domain.Pizza();
 
-      foreach(var p in _db.Pizza.ToList())
+      foreach(var crust in _db.Crust.ToList())
       {
-        domainPizzaList.Add(new model.Pizza()
-        {
-          Name = p.Name,
-          Crust = new comp.Crust() { Name = p.Crust.Name },
-          Size = new comp.Size() { Name = p.Size.Name },
-          Toppings = new List<comp.Topping>()
-        });
+        compCrustList.Add(new comp.Crust(crust.Name, crust.Price));
       };
 
-      return domainPizzaList;
+      return compCrustList;
+    }
+
+    public List<comp.Topping> ToppingOptions()
+    {
+      var compToppingList = new List<comp.Topping>();
+      // var newPizza = new domain.Pizza();
+
+      foreach(var topping in _db.Topping.ToList())
+      {
+        compToppingList.Add(new comp.Topping(topping.Name, topping.Price));
+      };
+
+      return compToppingList;
+    }
+
+    public List<comp.Size> SizeOptions()
+    {
+      var compSizeOptions = new List<comp.Size>();
+      // var newPizza = new domain.Pizza();
+
+      foreach(var sizeOption in _db.Size.ToList())
+      {
+        compSizeOptions.Add(new comp.Size(sizeOption.Name, sizeOption.Price));
+      };
+
+      return compSizeOptions;
     }
 
     public void Update() {}

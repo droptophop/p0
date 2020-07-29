@@ -12,7 +12,7 @@ namespace PizzaBox.Storing
 
         public int ToppingId { get; set; }
         public string Name { get; set; }
-        public bool Active { get; set; }
+        public decimal Price { get; set; }
 
         public virtual ICollection<PizzaTopping> PizzaTopping { get; set; }
     }
