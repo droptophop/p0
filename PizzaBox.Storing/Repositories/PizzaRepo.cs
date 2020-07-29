@@ -33,10 +33,10 @@ namespace PizzaBox.Storing.Repositories
       {
         domainPizzaList.Add(new model.Pizza()
         {
-          // Name = p.Name,
+          Name = p.Name,
           Crust = new comp.Crust() { Name = p.Crust.Name },
           Size = new comp.Size() { Name = p.Size.Name },
-          // Toppings = new List<comp.Topping>()
+          Toppings = new List<comp.Topping>()
         });
       };
 
