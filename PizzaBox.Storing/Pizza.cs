@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using PizzaBox.Housing.Models;
 
 namespace PizzaBox.Storing
 {
@@ -15,9 +14,8 @@ namespace PizzaBox.Storing
         public int CrustId { get; set; }
         public int SizeId { get; set; }
         public string Name { get; set; }
-        public decimal Price { get; set; }
         public DateTime DateModified { get; set; }
-        public bool? Active { get; set; }
+        public bool Active { get; set; }
 
         public virtual Crust Crust { get; set; }
         public virtual Size Size { get; set; }

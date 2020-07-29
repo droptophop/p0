@@ -26,7 +26,7 @@ namespace PizzaBox.Storing
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("server=localhost;database=PizzaStoreDb;user id=sa;password=hop88SeZ");
+                optionsBuilder.UseSqlServer("server=hopsonpizzastore.database.windows.net;database=PizzaStoreDb;user id=sqladmin;password=hop88SeZ");
             }
         }
 
@@ -35,10 +35,6 @@ namespace PizzaBox.Storing
             modelBuilder.Entity<Crust>(entity =>
             {
                 entity.ToTable("Crust", "Pizza");
-
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
@@ -49,17 +45,11 @@ namespace PizzaBox.Storing
             {
                 entity.ToTable("Pizza", "Pizza");
 
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.DateModified).HasColumnType("datetime2(0)");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(250);
-
-                entity.Property(e => e.Price).HasColumnType("money");
 
                 entity.HasOne(d => d.Crust)
                     .WithMany(p => p.Pizza)
@@ -78,15 +68,11 @@ namespace PizzaBox.Storing
             {
                 entity.ToTable("PizzaTopping", "Pizza");
 
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
                 entity.HasOne(d => d.Pizza)
                     .WithMany(p => p.PizzaTopping)
                     .HasForeignKey(d => d.PizzaId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Pizza");
+                    .HasConstraintName("FK_PizzaToppping");
 
                 entity.HasOne(d => d.Topping)
                     .WithMany(p => p.PizzaTopping)
@@ -99,10 +85,6 @@ namespace PizzaBox.Storing
             {
                 entity.ToTable("Size", "Pizza");
 
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
-
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -111,10 +93,6 @@ namespace PizzaBox.Storing
             modelBuilder.Entity<Topping>(entity =>
             {
                 entity.ToTable("Topping", "Pizza");
-
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("((1))");
 
                 entity.Property(e => e.Name)
                     .IsRequired()

@@ -1,41 +1,41 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using domain = PizzaBox.Housing.Models;
+using comp = PizzaBox.Housing.Components;
+using model = PizzaBox.Housing.Models;
 
 namespace PizzaBox.Storing.Repositories
 {
   public class PizzaRepo
   {
-    private PizzaBoxDbContext _db = new PizzaBoxDbContext();
+    private PizzaStoreDbContext _db = new PizzaStoreDbContext();
 
-    public void Create(domain.Pizza pizza)
+    public void Create(model.Pizza pizza)
     {
       var newPizza = new Pizza();
+      var orderDate = DateTime.UtcNow;
 
+      newPizza.Name = pizza.Name;
       newPizza.Crust = new Crust() { Name = pizza.Crust.Name };
       newPizza.Size = new Size() { Name = pizza.Size.Name };
-      //newPizza.Name = pizza.Name;
-      //var orderDate = DateTime.UtcNow;
-      //newPizza.DateModified = DateTime.Now;
-      //newPizza.Active = false;
-      //newPizza.UserModified = Identity.Hash;
+      newPizza.DateModified = orderDate;
 
       _db.Pizza.Add(newPizza);
       _db.SaveChanges();
     }
 
-    public List<domain.Pizza> ReadAll()
+    public List<model.Pizza> ReadAll()
     {
-      var domainPizzaList = new List<domain.Pizza>();
+      var domainPizzaList = new List<model.Pizza>();
+      // var newPizza = new domain.Pizza();
 
-      foreach(var item in _db.Pizza.ToList())
+      foreach(var p in _db.Pizza.ToList())
       {
-        domainPizzaList.Add(new domain.Pizza()
+        domainPizzaList.Add(new model.Pizza()
         {
-          Crust = new domain.Crust() { Name = item.Crust.Name },
-          Size = new domain.Size() { Name = item.Size.Name },
-          Toppings = new List<domain.Topping>()
+          Crust = new comp.Crust() { Name = p.Crust.Name },
+          Size = new comp.Size() { Name = p.Size.Name },
+          Toppings = new List<comp.Topping>()
         });
       };
 
