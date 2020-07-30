@@ -11,6 +11,7 @@ namespace PizzaBox.Storing
         }
 
         public int PizzaId { get; set; }
+        public int OrderId { get; set; }
         public int CrustId { get; set; }
         public int SizeId { get; set; }
         public string Name { get; set; }
@@ -18,6 +19,7 @@ namespace PizzaBox.Storing
         public DateTime DateModified { get; set; }
 
         public virtual Crust Crust { get; set; }
+        public virtual Orders Order { get; set; }
         public virtual Size Size { get; set; }
         public virtual ICollection<PizzaTopping> PizzaTopping { get; set; }
     }
