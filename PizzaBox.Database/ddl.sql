@@ -1,69 +1,45 @@
 -- data definition language
 
-use PizzaStoreDb;
-go
+-- use PizzaStoreDb;
+-- go
 
-create schema Pizza; -- namespace
-go
+-- create schema Pizza; -- namespace
+-- go
 
-create schema Orders; -- namespace
-go
+-- create schema Orders; -- namespace
+-- go
 
-create schema Users; -- namespace
-go
+-- create schema Users; -- namespace
+-- go
 
-create schema Store; -- namespace
-go
+-- create schema Store; -- namespace
+-- go
 
 -- CREATE 
 
-create table Pizza.Crust
-(
-    CrustId int identity (1,1) not null,
-    [Name] nvarchar(100) not null,
-    Price money not null,
-    constraint PK_CrustId primary key (CrustId)
-);
+-- create table Pizza.Crust
+-- (
+--     CrustId int identity (1,1) not null,
+--     [Name] nvarchar(100) not null,
+--     Price money not null,
+--     constraint PK_CrustId primary key (CrustId)
+-- );
 
-create table Pizza.Size
-(
-    SizeId int identity (1,1) not null,
-    [Name] nvarchar(100) not null,
-    Price money not null,
-    constraint PK_SizeId primary key (SizeId)
-);
+-- create table Pizza.Size
+-- (
+--     SizeId int identity (1,1) not null,
+--     [Name] nvarchar(100) not null,
+--     Price money not null,
+--     constraint PK_SizeId primary key (SizeId)
+-- );
 
-create table Pizza.Topping
-(
-    ToppingId int identity (1,1) not null,
-    [Name] nvarchar(100) not null,
-    Price money not null,
-    constraint PK_ToppingId primary key (ToppingId)
-);
-
-create table Pizza.Pizza
-(
-    PizzaId int identity (1,1) not null,
-    CrustId int not null,
-    SizeId int not null,
-    [Name] nvarchar(250) not null,  
-    Price money not null,
-    DateModified datetime2(0) not null,
-    constraint PK_PizzaId primary key (PizzaId), 
-    constraint FK_CrustId foreign key (CrustId) references Pizza.Crust(CrustId),
-    constraint FK_SizeId foreign key (SizeId) references Pizza.Size(SizeId)
-);
-
-create table Pizza.PizzaTopping
-(
-    PizzaToppingId int identity (1,1) not null,
-    PizzaId int not null,
-    ToppingId int not null,
-    constraint PK_PizzaToppingId primary key (PizzaToppingId),
-    constraint FK_ToppingId foreign key (ToppingId) references Pizza.Topping(ToppingId),
-    constraint FK_PizzaToppingId foreign key (PizzaId) references Pizza.Pizza(PizzaId)
-
-);
+-- create table Pizza.Topping
+-- (
+--     ToppingId int identity (1,1) not null,
+--     [Name] nvarchar(100) not null,
+--     Price money not null,
+--     constraint PK_ToppingId primary key (ToppingId)
+-- );
 
 create table Users.Users
 (
@@ -82,13 +58,39 @@ create table Store.Store
 create table Orders.Orders
 (
     OrderId int not null identity (1,1),
-    UserId int not null,
-    StoreId int not null,
+    ConfirmedUserId int not null,
+    ConfirmedStoreId int not null,
     Price money not null,
     OrderDate datetime2(0) not null default getdate(),
     constraint PK_OrderId primary key (OrderId),
-    constraint FK_UserId foreign key (UserId) references Users.Users(UserId),
-    constraint FK_StoreId foreign key (StoreId) references Store.Store(StoreId)
+    constraint FK_UserId foreign key (ConfirmedUserId) references Users.Users(UserId),
+    constraint FK_StoreId foreign key (ConfirmedStoreId) references Store.Store(StoreId)
+);
+
+create table Pizza.Pizza
+(
+    PizzaId int identity (1,1) not null,
+    OrderId int not null,
+    CrustId int not null,
+    SizeId int not null,
+    [Name] nvarchar(250) not null,  
+    Price money not null,
+    DateModified datetime2(0) not null,
+    constraint PK_PizzaId primary key (PizzaId), 
+    constraint FK_OrderId foreign key (OrderId) references Orders.Orders(OrderId),
+    constraint FK_CrustId foreign key (CrustId) references Pizza.Crust(CrustId),
+    constraint FK_SizeId foreign key (SizeId) references Pizza.Size(SizeId)
+);
+
+create table Pizza.PizzaTopping
+(
+    PizzaToppingId int identity (1,1) not null,
+    PizzaId int not null,
+    ToppingId int not null,
+    constraint PK_PizzaToppingId primary key (PizzaToppingId),
+    constraint FK_ToppingId foreign key (ToppingId) references Pizza.Topping(ToppingId),
+    constraint FK_PizzaToppingId foreign key (PizzaId) references Pizza.Pizza(PizzaId)
+
 );
 go
 
