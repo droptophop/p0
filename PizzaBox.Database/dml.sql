@@ -26,3 +26,12 @@ values
 ('Tomatoes', 0.15),
 ('Spinach', 0.15);
 
+insert into Users.Users
+( [Name] )
+values 
+( 'Harry' );
+
+insert into Store.Store
+( [Name] )
+values 
+( 'Store 1' );

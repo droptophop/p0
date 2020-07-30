@@ -22,7 +22,7 @@ create table Pizza.Crust
     CrustId int identity (1,1) not null,
     [Name] nvarchar(100) not null,
     Price money not null,
-    constraint PK_Crust primary key (CrustId)
+    constraint PK_CrustId primary key (CrustId)
 );
 
 create table Pizza.Size
@@ -30,7 +30,7 @@ create table Pizza.Size
     SizeId int identity (1,1) not null,
     [Name] nvarchar(100) not null,
     Price money not null,
-    constraint PK_Size primary key (SizeId)
+    constraint PK_SizeId primary key (SizeId)
 );
 
 create table Pizza.Topping
@@ -38,7 +38,7 @@ create table Pizza.Topping
     ToppingId int identity (1,1) not null,
     [Name] nvarchar(100) not null,
     Price money not null,
-    constraint PK_Topping primary key (ToppingId)
+    constraint PK_ToppingId primary key (ToppingId)
 );
 
 create table Pizza.Pizza
@@ -49,9 +49,9 @@ create table Pizza.Pizza
     [Name] nvarchar(250) not null,  
     Price money not null,
     DateModified datetime2(0) not null,
-    constraint PK_Pizza primary key (PizzaId), 
-    constraint FK_Crust foreign key (CrustId) references Pizza.Crust(CrustId),
-    constraint FK_Size foreign key (SizeId) references Pizza.Size(SizeId)
+    constraint PK_PizzaId primary key (PizzaId), 
+    constraint FK_CrustId foreign key (CrustId) references Pizza.Crust(CrustId),
+    constraint FK_SizeId foreign key (SizeId) references Pizza.Size(SizeId)
 );
 
 create table Pizza.PizzaTopping
@@ -59,9 +59,9 @@ create table Pizza.PizzaTopping
     PizzaToppingId int identity (1,1) not null,
     PizzaId int not null,
     ToppingId int not null,
-    constraint PK_PizzaTopping primary key (PizzaToppingId),
-    constraint FK_Topping foreign key (ToppingId) references Pizza.Topping(ToppingId),
-    constraint FK_PizzaToppping foreign key (PizzaId) references Pizza.Pizza(PizzaId)
+    constraint PK_PizzaToppingId primary key (PizzaToppingId),
+    constraint FK_ToppingId foreign key (ToppingId) references Pizza.Topping(ToppingId),
+    constraint FK_PizzaToppingId foreign key (PizzaId) references Pizza.Pizza(PizzaId)
 
 );
 
@@ -69,14 +69,14 @@ create table Users.Users
 (
     UserId int not null identity (1,1),
     [Name] nvarchar(50) not null,
-    constraint PK_User primary key (UserId)
+    constraint PK_UserId primary key (UserId)
 );
 
 create table Store.Store
 (
     StoreId int not null identity (1,1),
     [Name] nvarchar(50) not null,
-    constraint PK_Store primary key (StoreId)
+    constraint PK_StoreId primary key (StoreId)
 );
 
 create table Orders.Orders
@@ -86,19 +86,9 @@ create table Orders.Orders
     StoreId int not null,
     Price money not null,
     OrderDate datetime2(0) not null default getdate(),
-    constraint PK_Order primary key (OrderId),
-    constraint FK_User foreign key (UserId) references Users.Users(UserId),
-    constraint FK_Store foreign key (StoreId) references Store.Store(StoreId)
-);
-
-create table Orders.PizzaOrder
-(
-    PizzaOrderId int not null identity (1,1),
-    PizzaId int not null,
-    OrderId int not null,
-    constraint PK_PizzaOrder primary key (PizzaOrderId),
-    constraint FK_Pizza foreign key (PizzaId) references Pizza.Pizza(PizzaId),
-    constraint FK_Order foreign key (OrderId) references Orders.Orders(OrderId)
+    constraint PK_OrderId primary key (OrderId),
+    constraint FK_UserId foreign key (UserId) references Users.Users(UserId),
+    constraint FK_StoreId foreign key (StoreId) references Store.Store(StoreId)
 );
 go
 

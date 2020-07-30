@@ -1,7 +1,7 @@
 ﻿using System;
 using model = PizzaBox.Housing.Models;
 using comp = PizzaBox.Housing.Components;
-using PizzaBox.Storing.Repositories;
+// using PizzaBox.Storing.Repositories;
 
 namespace PizzaBox.Client
 {
